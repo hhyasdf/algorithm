@@ -45,7 +45,7 @@ do { \
             } \
         } \
         std::cout << "]" << endl; \
-        std::cout << "answer is " << boolalpha << flag << std::endl; \
+        std::cout << "answer accepted: " << boolalpha << flag << std::endl; \
         std::cout << endl; \
     } \
 }while(0)
@@ -64,7 +64,7 @@ do{\
     } else { \
         std::cout << "result value: " << result << std::endl; \
     } \
-    std::cout << "answer is " << boolalpha << (target == result) << std::endl; \
+    std::cout << "answer accepted: " << boolalpha << (target == result) << std::endl; \
     std::cout << endl; \
 }while(0)
 
