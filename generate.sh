@@ -8,6 +8,6 @@ if [ $# == 0 ]; then
 
 else 
     for i in $@; do
-        cp -r ./code_template/example ./problem/$i
+        cp -r ./code_template/example ./problems/$i
     done
 fi
