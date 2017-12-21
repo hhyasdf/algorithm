@@ -13,6 +13,7 @@ CREAETE_SAMPLE(output, int){
 };
 
 START_TEST(){
+    Solution solution;
     auto sample_size = input.size();
     
     if (sample_size != output.size()){
@@ -20,6 +21,8 @@ START_TEST(){
     }
 
     auto sample_input_begin = input.begin();
+    auto sample_output_begin = output.begin();
+    
     for (int i = 0; i < sample_size; ++i) {
         cout << "Test " << i + 1 << ":" << endl;
 
