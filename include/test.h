@@ -80,6 +80,8 @@ do{ \
         auto temp = *(seq_begin + i); \
         if (i != seq.size() - 1) { \
             std::cout << temp << ", "; \
+        } else { \
+            std::cout << temp; \
         } \
     } \
     std::cout << "]" << endl; \
