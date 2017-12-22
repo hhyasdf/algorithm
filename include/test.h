@@ -18,7 +18,7 @@ do { \
         bool flag = true; \
         \
         std::cout << "target sequence: ["; \
-        auto target_begin = terget.begin(); \
+        auto target_begin = target.begin(); \
         for (int i = 0; i < seq_size; ++i) { \
             auto temp = *(target_begin + i); \
             if (i != seq_size - 1) { \
