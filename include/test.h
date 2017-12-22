@@ -94,7 +94,7 @@ do{ \
 do{ \
     auto value = v; \
     std::cout << message << value << endl; \
-}
+}while(0)
 
 
 #define START_TEST() int main()
