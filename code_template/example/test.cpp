@@ -16,9 +16,9 @@ START_TEST(){
     Solution solution;
     auto sample_size = input.size();
     
-    if (sample_size != output.size()){
-        cout << "sample inputs and outputs have different size!" << endl;
-    }
+    // if (sample_size != output.size()){
+    //     cout << "sample inputs and outputs have different size!" << endl;
+    // }
 
     auto sample_input_begin = input.begin();
     auto sample_output_begin = output.begin();
