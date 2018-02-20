@@ -153,9 +153,9 @@ merge_sort(A, p, r):
 
 //堆操作函数的伪代码见 documents/heap/heap.sort
 heap_sort(A):
-	build_heap(A)                //时间复杂度为 O(n)
+	build_heap(A)                //建立一个最大堆，时间复杂度为 O(n)
  	for p = A.length-1 to 1:
-		swap(A[0], A[p])
+		swap(A[0], A[p])         //不会破坏完全二叉树的性质
 		heapify(A, 0, p)         //时间复杂度为 O(lg n)
 ```
 
