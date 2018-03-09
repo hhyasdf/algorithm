@@ -28,7 +28,7 @@ public:
     static Solution* getInstance() {
         // write your code here
         static Solution *instance = NULL;            //！！注意单例模式的写法，这样定义的是一个全局变量，而不是一个static member
-                                                     //只能这么写
+                                                     //！！只能这么写
         if (instance == NULL) {
             instance = new Solution();
         }
