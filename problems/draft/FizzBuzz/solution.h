@@ -22,6 +22,7 @@ public:
      * @return: A list of strings.
      */
 
+    //麻烦的地方在于要自己写一个itoa，好久没写过了。。。。
     string itoa(int n) {
         char nums[10] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
         string res;
