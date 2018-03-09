@@ -29,7 +29,7 @@ public:
             res += nums[n%10];
             n /= 10;
         }
-        reverse(res.begin(), res.end());
+        reverse(res.begin(), res.end());      //!!
 
         return res;
     }
