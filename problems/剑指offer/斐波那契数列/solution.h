@@ -15,27 +15,23 @@ using namespace std;
  * the implement of algorithm
  */
 
-//求第n个斐波那契数
+//求第n个斐波那契数，索引从第0个开始：0 1 1 2 3...
 
 class Solution {
 public:
-    /**
-     * @param n: an integer
-     * @return: an ineger f(n)
-     */
-    int fibonacci(int n) {
-        // write your code here
+    int Fibonacci(int n) {
+
         int tmp1, tmp2, target;
         tmp1 = 0;
         tmp2 = 1;
 
-        if (n == 1) {
+        if (n == 0) {
             return tmp1; 
-        } else if (n == 2) {
+        } else if (n == 1) {
             return tmp2;
         }
 
-        for (int i = 0; i < n - 2; i++) {
+        for (int i = 0; i < n - 1; i++) {
             target = tmp1 + tmp2;
             tmp1 = tmp2;
             tmp2 = target;    

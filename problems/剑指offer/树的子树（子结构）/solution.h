@@ -20,7 +20,7 @@ using namespace std;
 // 若 T1 中存在从节点 n 开始的子树与 T2 相同，我们称 T2 是 T1 的子树。
 // 也就是说，如果在 T1 节点 n 处将树砍断，砍断的部分将与 T2 完全相同。
 
-// 不是树的一部分，而是子树，要注意
+// 不是树的子结构，而是子树，要注意
 
 
 // Definition of TreeNode:
@@ -58,7 +58,7 @@ public:
                 return false;
             }
         } else {
-            if (T1->left != NULL) {           // ！！
+            if (T1->left != NULL) {           // ！！去掉就变成了子结构
                 return false;
             }
         }
@@ -72,7 +72,7 @@ public:
                 return false;
             }
         } else {
-            if (T1->right != NULL) {         //！！
+            if (T1->right != NULL) {         //！！去掉就变成了子结构
                 return false;
             }
         }
