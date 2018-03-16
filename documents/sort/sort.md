@@ -52,7 +52,7 @@ insertion_sort(A):
 		while end != start:
 			i = (end+start)/2   
 			if A[i] > key:
-				end = i         //不能end=i-1，当end-start=1且A[start]>key时会出现错误
+				end = i         //不能end=i-1，当end-start==1且A[start]>key时会出现错误
 			else:
 				start = i+1     //要注意是地板除！！当end-start=1且A[start]<=key时，如果
 							    //此处为 start = i 可能会死循环。
