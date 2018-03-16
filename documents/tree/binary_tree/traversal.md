@@ -28,7 +28,7 @@ pre_order_traversal(node, operation):
 		pre_order_traversal(node.right, operation)
 ```
 
-迭代方式，**对于每个节点，如果节点不为NIL，先访问其本身，将其右儿子入栈，并用左儿子继续循环，如果节点为NIL且stack非空，表示已经到达本次需要访问的最左端节点，则进行出栈操作，访问得到的节点并使用该得到的节点继续循环，如果节点为NIL且stack为空。则结束循环**：
+迭代方式，**对于每个节点，如果节点不为NIL，先访问其本身，将其本身入栈，并用左儿子继续循环，如果节点为NIL且stack非空，表示已经到达本次需要访问的最左端节点，则进行出栈操作，访问得到的节点的右儿子并使用该得到的节点继续循环，如果节点为NIL且stack为空。则结束循环**：
 
 ```
 //operation表示要进行的操作, root_node为要遍历的（子）树的根节点
@@ -60,7 +60,7 @@ in_order_traversal(node, operation):
 		in_order_traversal(node, operation)
 ```
 
-迭代形式，**对于每个节点，如果节点不为NIL，先将其本身入栈，再使用左儿子继续循环，如果节点为NIL且stack非空，表示已经到达本次需要访问的最左端节点，则进行出栈操作，访问出栈得到的节点，该节点的右儿子继续循环。如果节点为NIL且stack为空，则结束循环**：
+迭代形式，**对于每个节点，如果节点不为NIL，先将其本身入栈，再使用左儿子继续循环，如果节点为NIL且stack非空，表示已经到达本次需要访问的最左端节点，则进行出栈操作，访问出栈得到的节点，并使用该节点的右儿子继续循环。如果节点为NIL且stack为空，则结束循环**：
 
 ```
 //operation表示要进行的操作, root_node为要遍历的（子）树的根节点
@@ -104,8 +104,7 @@ post_order_traversal(root_node, operation):
    			node = node.left
    		node = stack.pop()           //如果右儿子的位置为NIL代表右子树已经访问过
         if node == NIL:              //如果右子树已经被访问完，又因为栈顶的节点左子树已经被访问过
-        	operation(stack.pop())
-        	node = NIL               //该子树的节点已全部被访问过，向上回溯
+        	operation(stack.pop())   //该子树的节点已全部被访问过，向上回溯
         else:                        //node对应的右子树还没有访问过
         	stack.push(NIL)          //下个循环访问node为根的右子树
 ```
