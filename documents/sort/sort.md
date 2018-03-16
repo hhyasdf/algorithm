@@ -54,7 +54,7 @@ insertion_sort(A):
 			if A[i] > key:
 				end = i         //不能end=i-1，当end-start==1且A[start]>key时会出现错误
 			else:
-				start = i+1     //要注意是地板除！！当end-start=1且A[start]<=key时，如果
+				start = i+1     //要注意是地板除！！当end-start==1且A[start]<=key时，如果
 							    //此处为 start = i 可能会死循环。
 		while p = j-1 to end:
 			A[p+1] = A[p]
@@ -62,7 +62,7 @@ insertion_sort(A):
     	A[end] = key            //循环结束后A[start]==A[end]>key
 ```
 
-> PS：二分查找的细节要注意，如上述例子伪代码的循环中只能 end = i，start = i + 1，考虑end和start相邻的特殊情况可得
+> PS：二分查找的细节要注意，如上述例子伪代码的循环中只能 end = i，start = i + 1，考虑end和start相邻的特殊情况可得（二分查找一定要移动常数步）
 
 此时（总共）需要 O($n\lg{n}$) 次比较操作。但是实际的插入排序总时间复杂度仍然是 O($n^2$)。（二分）插入排序是稳定的。
 
