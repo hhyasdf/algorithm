@@ -15,6 +15,9 @@ using namespace std;
  * the implement of algorithm
  */
 
+//　这个不是剑指offer书里的，类似于最大子串和问题
+
+
 // 从一个数组中找出满足符合条件的元素:它大于或等于前面所有元素,小于或等于后面所有元素
 
 
