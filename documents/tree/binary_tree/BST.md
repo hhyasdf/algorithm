@@ -168,7 +168,7 @@ right_rotation(T, N):
 
 ##### AVL #####
 
-AVL树是最先发现的自平衡查找树，在AVL树中任何节点的两个子树的高度最大差别为1，也被称为高度平衡树。AVL树的每个节点中都保存了该节点在树中的高度（height，即从该节点到其子树中一叶子节点的最长简单路径），我们可以很简单地得到：每个节点（node）的高度等于以其为根节点的树的高度并等于两儿子节点的高度的最大值加1（ node.height = max{ node.left.height, node.right.height } + 1 ）。根据这个公式，为了方便计算，我们将NIL节点的 height 记为 -1（ NIL.height=-1 ）。
+AVL树是最先发现的自平衡查找树，在AVL树中任何节点的两个子树的高度最大差别为1，也被称为高度平衡树。AVL树的**每个节点中都保存了该节点在树中的高度**（height，即从该节点到其子树中一叶子节点的最长简单路径），我们可以很简单地得到：每个节点（node）的高度等于以其为根节点的树的高度并等于两儿子节点的高度的最大值加1（ node.height = max{ node.left.height, node.right.height } + 1 ）。根据这个公式，为了方便计算，我们将NIL节点的 height 记为 -1（ NIL.height=-1 ）。
 
 根据AVL树的定义可得，|node.left.height - node.right.height|必须满足 <= 1。
 
