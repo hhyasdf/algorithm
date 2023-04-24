@@ -27,14 +27,16 @@ BST_search(T, target):
 	return position	
 ```
 
-由于二叉搜索树的查找和插入操作的最差时间复杂度取决于树的高度（即从根节点到一叶子节点的最长路径），而树的高度可能为n，所以最坏时间复杂度为 O($n$)，此时树中的每层都只有一个节点。插入操作如下：
+由于二叉搜索树的查找和插入操作的最差时间复杂度取决于树的高度（即从根节点到一叶子节点的最长路径），而树的高度可能为n，所以最坏时间复杂度为 O($n$)，此时树中的每层都只有一个节点。
+
+二叉树的插入操作如下：
 
 ```
 //T为要查找的二叉树，每个节点存储了一个value和左右子节点的信息left和right，没有子节点的话相应值为NIL
 //target为要插入的目标值
 BST_insert(T, target):
 	node = T.root
-	if T.root == NIL:
+	if T.root == NIL:                   //如果为空树，初始化根节点
 		node = T.root = new node
 		node.value = target
 		node.left = node.right = NIL
@@ -49,8 +51,8 @@ BST_insert(T, target):
 			else if parent.value > target:
 				position = parent.left
 			else:
-				return NULL               //该值已存在
-		if parent.left == position:
+				return NULL                   //该值已存在，插入应该失败，不允许有重复的值
+		if parent.value > target:         //还需要跟 parent.value 对比一下才知道应该是左还是右
 			node = parent.left = new node
 			node.value = target
 			node.left = node.right = NIL
@@ -63,7 +65,7 @@ BST_insert(T, target):
 	return node
 ```
 
-删除操作如下（我们可以发现只有当node至少存在一个NIL儿子的时候才会被**实际删除**，其他情况下只是简单的将其左子树的最右节点或右子树的最左节点的value赋给node，然后删除最左/右节点）：
+删除操作如下（我们可以发现只有当node至少存在一个NIL儿子的时候才会被**实际删除**，其他情况下只是简单的将其左子树的最右节点或右子树的最左节点的value赋给node，然后删除最左/右节点，下面的代码是删除左子树的最右节点）：
 
 ```
 //T为要查找的二叉树，每个节点存储了一个value和左右子节点的信息left和right，没有子节点的话相应值为NIL
@@ -101,14 +103,14 @@ BST_delete(T, node):
 		while right_n.right != NIL:   //找到左子树的最右节点，最右节点肯定没有右儿子
 			p = right_n
 			right_n = right_n.right
-		node.value = right_n.value    //没有实际删除node
-		if p == node:                 //左子树最右节点就是node的左儿子
-			p.left = right_n.left     //最右节点被其左儿子替代
-		else:
-			p.right = right_n.left
-		if right_n.left != NIL:       //最右节点是叶子节点
+		node.value = right_n.value    //首先用左子树的最右节点的值覆盖要删除的节点，没有实际删除node
+		if p == node:                 //左子树最右节点就是node的左儿子，只有这种情况左子树的最右节点是其父节点的左儿子
+			p.left = right_n.left       //最右节点被其左儿子替代
+		else:                         //左子树的最右节点是其父节点的右儿子
+			p.right = right_n.left      //最右节点的右儿子一定为NIL，所以用最右节点的左儿子来代替最右节点
+		if right_n.left != NIL:       //最右节点如果不是叶子节点
 			right_n.left.parent = p
-		delete right_n                //最右节点被实际删除
+		delete right_n                //左子树的最右子节点被实际删除
 ```
 
 删除操作的时间复杂度也为 O($\lg{n}$)。
@@ -119,6 +121,8 @@ BST_delete(T, node):
 
 为了解决由于不平衡的树造成的效率低下的影响，**平衡树**（balanced tree）被开发出来以保证BST的效率。平衡树中，任何节点的两个子树的高度最大差别为1（每棵平衡树的高度不一定是 $\log{n +1}$ ，即不一定是一棵完全二叉树，其最少节点数目满足以下规律：$N_0=0,N_1=1,N_2=2; N_h=N_{h−1}+N_{h−2}+1$ 其中 $h$ 为树的高度，完全二叉树的定义见 documents/heap/heap.md ）几乎所有平衡树的操作都基于 O(1) 的**旋转**操作，通过旋转操作可以使树趋于平衡。旋转操作不会违背BST的性质。（旋转的时候注意要将旋转的两个节点的所有儿子画出来，如果没有左儿子或右儿子，用NIL节点代替，不然很容易搞错）
 
+> 只有转轴节点为父节点的左儿子时才能右旋；只有转轴节点为父节点的右儿子时才能左旋
+
 旋转操作如图：![./Tree_rotation.png](Tree_rotation.png)
 
 ```
@@ -127,7 +131,7 @@ BST_delete(T, node):
 left_rotation(T, N):
 	if N != T.root:           //如果N是根节点，那么什么都不做
 		parent = N.parent
-		grandparent = parent.parent
+		grandparent = parent.parent    //注意下搞个指针指到parent和grandparent
 		if grandparent != NIL:
 			if grandparent.left == parent:
 				grandparent.left = N
@@ -162,7 +166,7 @@ right_rotation(T, N):
 		N.right = parent
 ```
 
-通常我们采用旋转操作来使子树的高度减1（我们把PABCQ视为一棵子树，假设此时以P节点为根的子树高度等于以C节点为根的子树高度加2），但我们需要注意到，如果需要右旋时（如图），B节点代表的子树高度如果等于A节点代表的子树高度加1，此时右旋后仍不平衡，我们需要先左旋P和B节点，再右旋B和Q节点（double rotation），左旋时情况类似。
+通常我们采用旋转操作来使子树的高度减1（我们把PABCQ视为一棵子树，假设此时以P节点为根的子树高度等于以C节点为根的子树高度加2），但我们需要注意到，如果需要右旋时（如上图左边），B节点代表的子树高度如果等于A节点代表的子树高度加1，此时右旋后仍不平衡，我们需要先以B节点为轴左旋，再以（旋转后的）B节点右旋（double rotation），左旋时情况类似。
 
 每种平衡树的搜索方式和普通BST相同，我们只关注它们的 insert 和 delete 操作。
 
@@ -436,7 +440,7 @@ RBT_delete(T, target):
         				N = P                 //递归向上处理
 ```
 
-红黑树的删除操作的时间复杂度也为 O($\lg{n}$)。但红黑树的统计性能比AVL树更高，因为AVL是严格的平衡树，在增加或删除节点时，根据不同的情况，旋转的次数比红黑树更多，**红黑树用非严格的平衡换取了增删节点的较少旋转次数**，如果搜索的次数远远大于插入和删除的次数，那么应该选择AVL树。而且在多线程环境中，一次旋转需要锁住整个树，所以红黑树对于多线程更加友好。
+红黑树的删除操作的时间复杂度也为 O($\lg{n}$)。但红黑树的统计性能比AVL树更高，因为AVL是严格的平衡树，在增加或删除节点时，根据不同的情况，旋转的次数比红黑树更多，**红黑树用非严格的平衡换取了增删节点的较少旋转次数**，如果搜索的次数远远大于插入和删除的次数，那么应该选择AVL树。而且在多线程环境中，**一次旋转需要锁住整个树**，所以红黑树对于多线程更加友好。
 
 
 
